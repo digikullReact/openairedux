@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { Col, Row } from 'antd';
+import Search from './components/Search';
+import {useSelector} from "react-redux";
+import Images from "./components/Images";
+import { Space, Spin } from 'antd';
+
+
 
 function App() {
+  const aireducer=useSelector(state=>state.aireducer);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   
+    <Row style={{marginTop:"150px"}}>
+    <Col span={12}>
+
+      <Search/>
+    </Col>
+    <Col span={12}>
+    {
+aireducer.images.length>0?
+
+aireducer.images.map(ele=>(
+  <Images url={ele.url}/>
+)): <Spin size="large" />
+
+    }
+    
+
+    </Col>
+  </Row>
+  )
 }
 
 export default App;
