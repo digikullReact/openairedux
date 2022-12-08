@@ -3,12 +3,12 @@ import { Col, Row } from 'antd';
 import Search from './components/Search';
 import {useSelector} from "react-redux";
 import Images from "./components/Images";
-import { Space, Spin } from 'antd';
-
+import {Spin} from "antd"
 
 
 function App() {
   const aireducer=useSelector(state=>state.aireducer);
+  console.log(aireducer)
   return (
    
     <Row style={{marginTop:"150px"}}>
@@ -17,13 +17,16 @@ function App() {
       <Search/>
     </Col>
     <Col span={12}>
-    {
-aireducer.images.length>0?
+  {
+    aireducer.loading? <Spin size="large" />:""
+  }
 
+    {
+
+      
 aireducer.images.map(ele=>(
   <Images url={ele.url}/>
-)): <Spin size="large" />
-
+))
     }
     
 
