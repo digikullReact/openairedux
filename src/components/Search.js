@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Button, Form, Input, Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import { fetchImages } from '../thunks/ai_thunk';
+import {Spin} from "antd"
 const { Option } = Select;
 
 const layout = {
@@ -19,18 +20,25 @@ const tailLayout = {
   },
 };
 const Search = () => {
+    const [state,setState]=useState(false);
 
     const dispatch=useDispatch();
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log(values);
+   // console.log(values);
 
     values.size="256x256"
     values.n=Number(values.n);
+    setState(true);
 
     // dispatching the action ---->
-    dispatch(fetchImages(values));
+    dispatch(fetchImages(values)).then(data=>{
+        setState(false);  // dispatch non async action 
+    }).catch(err=>{
+        setState(false);
+
+    })
   };
   const onReset = () => {
     form.resetFields();
@@ -42,7 +50,10 @@ const Search = () => {
     });
   };
   return (
-    <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+    <>
+   
+
+<Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
       <Form.Item
         name="prompt"
         label="Search Text"
@@ -77,7 +88,13 @@ const Search = () => {
         </Button>
       
       </Form.Item>
-    </Form>
+    </Form><br></br>
+
+    {
+    state? <Spin size="large"  style={{marginLeft:"200px"}}/>:""
+  }
+    </>
+   
   );
 };
 export default Search;

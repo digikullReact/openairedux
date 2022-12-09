@@ -17,9 +17,6 @@ function App() {
       <Search/>
     </Col>
     <Col span={12}>
-  {
-    aireducer.loading? <Spin size="large" />:""
-  }
 
     {
 

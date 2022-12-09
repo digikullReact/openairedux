@@ -8,7 +8,7 @@ export const fetchImages = createAsyncThunk(
 
         const configAxios={
             "headers":{
-                "Authorization":"Bearer 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"
+                "Authorization":"Bearer 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"
             }
         }
        // An async function return a promise
